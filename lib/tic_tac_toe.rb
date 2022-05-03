@@ -66,10 +66,9 @@ class TicTacToe
   end
 
   def reset_before_new_game
-    @players.each(&:reset)
-
-    @available_cells = (1..9).to_set
     @game_finished = false
+
+    @players.each(&:reset)
 
     @board.reset
     @board.display
@@ -78,28 +77,18 @@ class TicTacToe
   def next_turn(player)
     cell = 0
 
-    until valid_move?(cell)
+    until @board.valid_move?(cell)
       print "#{player.sign} #{player.name}'s turn (Enter a number from 1 to 9): "
       cell = gets.chomp.to_i
     end
 
     player.move(cell)
     @board.update(cell, player.sign)
-    @available_cells.delete(cell)
 
     @board.display
     check_game_status
 
     next_turn(player.opponent) unless @game_finished
-  end
-
-  def valid_move?(cell)
-    valid = @available_cells.include?(cell)
-
-    if cell >= 1 && cell <= 9 && !valid
-      puts "\nNumber '#{cell}' cell is already taken. Please choose another number.\n\n"
-    end
-    valid
   end
 
   def check_game_status
@@ -109,7 +98,7 @@ class TicTacToe
       puts "#{@players[0].name} won!"
     elsif @players[1].won?
       puts "#{@players[1].name} won!"
-    elsif @available_cells.empty?
+    elsif @board.full?
       puts "It's a draw!"
     else
       @game_finished = false

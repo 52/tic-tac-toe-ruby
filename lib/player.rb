@@ -18,28 +18,23 @@ class Player
   attr_reader :sign
 
   def initialize(sign, opponent = nil)
-    self.sign = sign
-    self.cells = Set.new
-    self.opponent = opponent
-    self.score = 0
+    @sign = sign
+    @cells = Set.new
+    @opponent = opponent
+    @score = 0
   end
 
   def move(cell)
-    cells.add(cell)
+    @cells.add(cell)
   end
 
   def won?
-    won = WIN_COMBIMATIONS.any? { |win_combination| win_combination.subset?(cells) }
-    self.score += 1 if won
+    won = WIN_COMBIMATIONS.any? { |win_combination| win_combination.subset?(@cells) }
+    @score += 1 if won
     won
   end
 
   def reset
-    cells.clear
+    @cells.clear
   end
-
-  private
-
-  attr_writer :sign
-  attr_accessor :cells
 end
