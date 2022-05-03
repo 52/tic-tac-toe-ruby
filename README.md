@@ -5,3 +5,5 @@ This is a project in the Ruby curriculum at [The Odin Project](https://www.theod
 ## Demo
 
 ![Demo of CLI Tic Tac Toe Game](/demo/demo.gif "Demo of CLI Tic Tac Toe Game")
+
+[Run on Repl.it](https://replit.com/@toannt/tic-tac-toe-ruby)
